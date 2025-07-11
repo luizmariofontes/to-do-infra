@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     image: postgres:16
-    container_name: postgres_dev
+    container_name: banco
     restart: always
     environment:
       POSTGRES_DB: projeto
@@ -14,7 +14,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - backend-network
+      - project-network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -26,7 +26,7 @@ services:
     ports:
       - "8085:80"
     networks:
-      - backend-network
+      - project-network
     depends_on:
       - db
 
@@ -35,7 +35,7 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - backend-network
+      - project-network
     depends_on:
       - db
     environment:
