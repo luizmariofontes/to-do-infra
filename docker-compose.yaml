@@ -45,4 +45,4 @@ volumes:
   postgres_data:
 
 networks:
-  backend-network:
+  project-network:
