@@ -14,7 +14,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - app-network
+      - backend-network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -26,9 +26,20 @@ services:
     ports:
       - "8085:80"
     networks:
-      - app-network
+      - backend-network
     depends_on:
       - db
+
+  backend:
+    image: luizmario/to-do-backend:latest
+    ports:
+      - "8000:8000"
+    networks:
+      - backend-network
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://backend:luiz0404@db:5432/projeto
 
 volumes:
   postgres_data:
