@@ -25,6 +25,8 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin123
     ports:
       - "8085:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     networks:
       - project-network
     depends_on:
@@ -43,6 +45,7 @@ services:
 
 volumes:
   postgres_data:
+  pgadmin_data:
 
 networks:
   project-network:
