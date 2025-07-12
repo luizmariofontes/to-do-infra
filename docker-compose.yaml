@@ -40,6 +40,7 @@ services:
       - db
     environment:
       DATABASE_URL: postgres://backend:luiz0404@db:5432/projeto
+      ALLOWED_HOSTS: localhost,127.0.0.1,192.168.0.131
   
   frontend:
     image: luizmario/to-do-frontend:latest
@@ -50,7 +51,7 @@ services:
     depends_on:
       - backend
     environment:
-      VUE_APP_API_URL: http://localhost:8000/api/v1/
+      VUE_APP_API_URL: http://192.168.0.131:8000/api/v1/
 
 volumes:
   postgres_data:
