@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:16
@@ -42,6 +40,17 @@ services:
       - db
     environment:
       DATABASE_URL: postgres://backend:luiz0404@db:5432/projeto
+  
+  frontend:
+    image: luizmario/to-do-frontend:latest
+    ports:
+      - "8083:8083"
+    networks:
+      - project-network
+    depends_on:
+      - backend
+    environment:
+      VUE_APP_API_URL: http://localhost:8000/api/v1/
 
 volumes:
   postgres_data:
