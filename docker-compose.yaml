@@ -3,10 +3,8 @@ services:
     image: postgres:16
     container_name: banco
     restart: always
-    environment:
-      POSTGRES_DB: projeto
-      POSTGRES_USER: backend
-      POSTGRES_PASSWORD: luiz0404
+    env_file:
+      - ./db.env
     ports:
       - "5432:5432"
     volumes:
@@ -18,9 +16,8 @@ services:
     image: dpage/pgadmin4
     container_name: pgadmin
     restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin123
+    env_file:
+      - ./pgadmin.env
     ports:
       - "8085:80"
     volumes:
@@ -38,9 +35,8 @@ services:
       - project-network
     depends_on:
       - db
-    environment:
-      DATABASE_URL: postgres://backend:luiz0404@db:5432/projeto
-      ALLOWED_HOSTS: localhost,127.0.0.1,192.168.0.131
+    env_file:
+      - ./backend.env 
   
   frontend:
     image: luizmario/to-do-frontend:latest
@@ -50,8 +46,8 @@ services:
       - project-network
     depends_on:
       - backend
-    environment:
-      VUE_APP_API_URL: http://192.168.0.131:8000/api/v1/
+    env_file:
+      - ./frontend.env
 
 volumes:
   postgres_data:
